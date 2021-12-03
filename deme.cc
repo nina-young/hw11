@@ -3,31 +3,32 @@
  * travelling-salesperson problem.  A deme is a population of individuals.
  */
 
-#include "chromosome.hh"
+
+#include "ClimbChromosome.hh"
 #include "deme.hh"
 
-// Generate a Deme of the specified size with all-random chromosomes.
+// Generate a Deme of the specified size with all-random ClimbChromosomes.
 // Also receives a mutation rate in the range [0-1].
 Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
   : pop_(pop_size), mut_rate_(mut_rate)
 {
-  // Add new chromosomes to the population
+  // Add new ClimbChromosomes to the population
   // Not sure if this is random (?)
   for (unsigned i = 0; i < pop_size; i++){
-    pop_[i] = new Chromosome(cities_ptr); //make sure that this is allocated corrrectly?
+    pop_[i] = new ClimbChromosome(cities_ptr); //make sure that this is allocated corrrectly?
   }
 }
 
-// Deconstruct by deleting each chromosome in the population
+// Deconstruct by deleting each ClimbChromosome in the population
 Deme::~Deme() {for (auto c : pop_){ delete c;}}
 
-// Return a copy of the chromosome with the highest fitness.
-const Chromosome* Deme::get_best() const
+// Return a copy of the ClimbChromosome with the highest fitness.
+const ClimbChromosome* Deme::get_best() const
 {
-  // Set to first Chromosome arbitrarily
-  Chromosome* highest = pop_[0];
+  // Set to first ClimbChromosome arbitrarily
+  ClimbChromosome* highest = pop_[0];
 
-  // Check highest against every other Chromosome in pop_
+  // Check highest against every other ClimbChromosome in pop_
   // (?) find a way to skip the first one with this syntax
   for (auto c : pop_){
    if (c->get_fitness() > highest->get_fitness()){
@@ -36,10 +37,10 @@ const Chromosome* Deme::get_best() const
   }
   return highest;
 }
-// Randomly select a chromosome in the population based on fitness and
-// return a pointer to that chromosome.
+// Randomly select a ClimbChromosome in the population based on fitness and
+// return a pointer to that ClimbChromosome.
 // Using Fitness Proportionate selection
-Chromosome* Deme::select_parent()
+ClimbChromosome* Deme::select_parent()
 {
   // Get the sume of all the fitness
   double S = 0;
@@ -64,20 +65,20 @@ Chromosome* Deme::select_parent()
   return nullptr; //should never happen but just to please the compiler
 }
 
-// Evolve a single generation of new chromosomes, as follows:
-// We select pop_size/2 pairs of chromosomes (using the select() method below).
-// Each chromosome in the pair can be randomly selected for mutation, with
-// probability mut_rate, in which case it calls the chromosome mutate() method.
+// Evolve a single generation of new ClimbChromosomes, as follows:
+// We select pop_size/2 pairs of ClimbChromosomes (using the select() method below).
+// Each ClimbChromosome in the pair can be randomly selected for mutation, with
+// probability mut_rate, in which case it calls the ClimbChromosome mutate() method.
 // Then, the pair is recombined once (using the recombine() method) to generate
-// a new pair of chromosomes, which are stored in the Deme.
-// After we've generated pop_size new chromosomes, we delete all the old ones.
+// a new pair of ClimbChromosomes, which are stored in the Deme.
+// After we've generated pop_size new ClimbChromosomes, we delete all the old ones.
 void Deme::compute_next_generation()
 {
-  std::vector<Chromosome*> new_pop;
+  std::vector<ClimbChromosome*> new_pop;
   for (unsigned long i=0; i<pop_.size()/2; i++){
     // Select two parents at random // What if they are the same?
-    Chromosome* p1 = select_parent();
-    Chromosome* p2 = select_parent();
+    ClimbChromosome* p1 = select_parent();
+    ClimbChromosome* p2 = select_parent();
 
     // Mutate parents if random number less than mut_rate_
     double lower_bound = 0;
