@@ -127,8 +127,8 @@ int main(int argc, char** argv)
   assert(cities.size() > 0 && "Did you actually read the input file successfully?");
 
 
- const auto best_ordering = exhaustive_search(cities);
- const auto best_ordering = randomized_search(cities, NUM_ITER);
+ //const auto best_ordering = exhaustive_search(cities);
+ //const auto best_ordering = randomized_search(cities, NUM_ITER);
   const auto best_ordering = ga_search(cities, NUM_ITER, pop_size, mut_rate);
 
   auto out = std::ofstream("shortest.tsv");

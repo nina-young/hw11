@@ -6,7 +6,7 @@
 
 
 // Using "local hill method"
-void mutate() override {
+virtual void mutate() {
   // evaluate the fitness of the current (original) chromosome.
   //   Pick a random point
   //   Swap the city at index p with the city at index p-1 and evaluate the resulting chromosome's fitness. If p==0, swap with the city at index N-1 instead of at index -1
@@ -19,6 +19,7 @@ void mutate() override {
   double fitness_2;
   double fitness_3;
   double best_fitness;
+  auto init_permutation = order_;
   if (p==0){
     std::swap(order_[p], order_[order.size()-1]);
     fitness_2 = this.get_fitness();
@@ -46,6 +47,6 @@ void mutate() override {
   return best_fitness;
 }
 
-Chromosome::Chromosome* clone(){
+Chromosome* clone() {
   return new ClimbChromosome(cities_ptr_);
 }

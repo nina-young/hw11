@@ -1,16 +1,14 @@
 // implementation for climb chromosome Class
 
-
+#pragma once
 #include "chromosome.hh"
 #include "deme.hh"
 
 class ClimbChromosome : public Chromosome {
   public:
   ClimbChromosome(const Cities *cities_ptr) : Chromosome(cities_ptr) {}
-  void mutate() override;
+  virtual void mutate() override;
 
-  Chromosome::Chromosome* clone() override;
-
-  private:
+  virtual Chromosome* clone() const override;
 
 };
