@@ -47,6 +47,5 @@ void mutate() override {
 }
 
 Chromosome::Chromosome* clone(){
-  return new Chromosome(cities_ptr_);
-  
+  return new ClimbChromosome(cities_ptr_);
 }

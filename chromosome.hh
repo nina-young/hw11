@@ -90,4 +90,5 @@ class Chromosome {
 
   std::default_random_engine generator_; // A random number generator for the various methods
   double offset_ = 2000000000000; // An offset for getting the fitness
+
 };
