@@ -18,6 +18,7 @@ void mutate() override {
   //swap with the city at index N-1 instead of at index -1
   double fitness_2;
   double fitness_3;
+  double best_fitness;
   if (p==0){
     std::swap(order_[p], order_[order.size()-1]);
     fitness_2 = this.get_fitness();
@@ -31,11 +32,21 @@ void mutate() override {
   } else {
     std::swap(order_[p], order_[p + 1]);
     fitness_3 = this.get_fitness();
-
   }
-
+  //find the highest total fitness between the three chromosomes)
+  if (fitness > fitness_2) {
+    best_fitness = fitness;
+  }
+  if (fitness_2 < fitness) {
+    best_fitness = fitness_2;
+  }
+  if (best_fitness < fitness_3) {
+    best_fitness = fitness_3;
+  }
+  return best_fitness;
 }
 
-Chromosome::Chromosome* clone() override {
-
+Chromosome::Chromosome* clone(){
+  return new Chromosome(cities_ptr_);
+  
 }

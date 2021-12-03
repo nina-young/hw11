@@ -25,4 +25,4 @@ tsp: tsp.o chromosome.o deme.o cities.o climb_chromosome.o
 	$(CXX) $(CXXFLAGS) $(OPTFLAGS) -c -o $@ $<
 
 clean:
-	rm -rf *.o test_cities test_chromosome test_deme tsp
+	rm -rf *.o test_cities test_chromosome test_deme tsp test_climb_chromosome
