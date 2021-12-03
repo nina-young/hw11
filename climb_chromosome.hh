@@ -9,7 +9,8 @@ class ClimbChromosome : public Chromosome {
 
   ClimbChromosome(const Cities *cities_ptr) : Chromosome(cities_ptr) {}
   virtual void mutate() override;
-
   virtual Chromosome* clone() const override;
+
+  private:
 
 };
