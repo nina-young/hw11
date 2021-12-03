@@ -3,50 +3,69 @@
 
 #include "climb_chromosome.hh"
 
-
-
 // Using "local hill method"
-virtual void mutate() {
-  // evaluate the fitness of the current (original) chromosome.
-  //   Pick a random point
-  //   Swap the city at index p with the city at index p-1 and evaluate the resulting chromosome's fitness. If p==0, swap with the city at index N-1 instead of at index -1
-  //   Swap the city at index p (from the original chromosome) with the city at index p+1 and evaluate the resulting chromosome's fitness. If p==N-1, swap with the city at index 0 instead of at index N.
-  //   Find which of the three chromosomes produced the fittest ordering and choose that fittest chromosome as the resulting mutated chromosome.
-  double fitness = this.get_fitness();
+void ClimbChromosome::mutate() {
   std::uniform_real_distribution<double> unif(0, order_.size() - 1);
   double p = unif(generator_);
   //swap with the city at index N-1 instead of at index -1
+  Cities::permutation_t permutation_1 = order_; // save the first order
+  Cities::permutation_t permutation_2;
+  Cities::permutation_t permutation_3;
+  double fitness_1 = get_fitness(); //find fitness of permutation 1
   double fitness_2;
   double fitness_3;
-  double best_fitness;
-  auto init_permutation = order_;
+  //first recombination
   if (p==0){
-    std::swap(order_[p], order_[order.size()-1]);
-    fitness_2 = this.get_fitness();
+    permutation_2 = permutation_1; //save new reordering
+    std::swap(permutation_2[p], permutation_2[permutation_2.size()-1]);
+    std::swap(permutation_2, order_);
+    assert(is_valid());
+    fitness_2 = get_fitness(); //get fitness of this permutation
+    std::swap(permutation_2, order_);
+    assert(is_valid());
   } else {
-    std::swap(order_[p], order_[p - 1]);
-    fitness_2 = this.get_fitness();
+    permutation_2 = permutation_1; //save new reordering
+    std::swap(permutation_2[p], permutation_2[p - 1]);
+    std::swap(permutation_2, order_);
+    fitness_2 = get_fitness(); // get fitness of perm 2
+    std::swap(permutation_2, order_);
+    assert(is_valid());
   }
-  if (p == order_.size()-1){
-    std::swap(order_[0], order_[p]);
-    fitness_3 = this.get_fitness();
+  //second recombination
+  if (p == permutation_1.size()-1){
+    permutation_3 = permutation_1; //save new reordering
+    std::swap(permutation_3[0], permutation_3[p]);
+    std::swap(permutation_3, order_);
+    fitness_3 = get_fitness();
+    std::swap(permutation_3, order_);
+    assert(is_valid());
   } else {
-    std::swap(order_[p], order_[p + 1]);
-    fitness_3 = this.get_fitness();
+    assert(is_valid());
+    permutation_3 = permutation_1; //save new reordering
+    std::swap(permutation_3[p], permutation_3[p + 1]);
+    assert(is_valid());
+    std::swap(permutation_3, order_);
+    assert(is_valid());
+    fitness_3 = get_fitness();
+    std::swap(permutation_3, order_);
+    assert(is_valid());
   }
   //find the highest total fitness between the three chromosomes)
-  if (fitness > fitness_2) {
-    best_fitness = fitness;
+  if (fitness_1 > fitness_2) {
+    order_ = permutation_1;
+    assert(is_valid());
   }
-  if (fitness_2 < fitness) {
-    best_fitness = fitness_2;
+  if (fitness_2 > fitness_1) {
+    order_ = permutation_2;
+    assert(is_valid());
   }
-  if (best_fitness < fitness_3) {
-    best_fitness = fitness_3;
+  if (get_fitness() < fitness_3) {
+    order_ = permutation_3;
+    assert(is_valid());
   }
-  return best_fitness;
+    assert(is_valid());
 }
 
-Chromosome* clone() {
+Chromosome* ClimbChromosome::clone() const {
   return new ClimbChromosome(cities_ptr_);
 }

@@ -7,10 +7,10 @@
 class ClimbChromosome : public Chromosome {
   public:
 
-  ClimbChromosome(const Cities *cities_ptr) : Chromosome(cities_ptr) {}
+  ClimbChromosome(const Cities *cities_ptr) : Chromosome(cities_ptr) {
+    assert(not order_.empty());
+  } //constructor
   virtual void mutate() override;
   virtual Chromosome* clone() const override;
-
-  private:
 
 };

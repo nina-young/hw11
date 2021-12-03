@@ -103,6 +103,7 @@ Chromosome::create_crossover_child(const Chromosome* p1, const Chromosome* p2,
 double
 Chromosome::get_fitness() const
 {
+  assert(is_valid());
   auto score = cities_ptr_->total_path_distance(order_);
   auto fitness = score*-1 + offset_;
   return fitness;

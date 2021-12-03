@@ -38,7 +38,7 @@ class Chromosome {
     return new Chromosome(cities_ptr_);
   }
 
-  // A chromsome is valid if it has no repeated values in its permutation,
+  // A chromosome is valid if it has no repeated values in its permutation,
   // as well as no indices above the range (length) of the chromosome.
   bool is_valid() const;
 
