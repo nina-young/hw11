@@ -6,6 +6,7 @@
 
 class ClimbChromosome : public Chromosome {
   public:
+
   ClimbChromosome(const Cities *cities_ptr) : Chromosome(cities_ptr) {}
   virtual void mutate() override;
 
