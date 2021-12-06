@@ -41,7 +41,7 @@ const Chromosome* Deme::get_best() const
 // Using Fitness Proportionate selection
 Chromosome* Deme::select_parent()
 {
-  // Get the sume of all the fitness
+  // Get the sum of all the fitness
   double S = 0;
   for (auto c : pop_){
     S += c->get_fitness();
