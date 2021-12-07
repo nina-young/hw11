@@ -9,6 +9,8 @@ adding tournament deme and climb chrom
 we need to fix the offset in chromosome.hh eventually
 
 
+explain verbose testing
+
 ## running 
 note that i need another arg
 

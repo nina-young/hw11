@@ -25,25 +25,36 @@ Chromosome* TournamentDeme::select_parent(){
 	if (verbose){std::cout<<"select_parent in tournament_deme.cc"<<std::endl;}
 	// p cannot be larger than the population size of the deme
 	assert(pop_.size()>p_);
-	//more prints
 	// Make container for parents to compete
 	std::vector<Chromosome*> p_parents;
-
-	// Find the maximum of p_parents
-	// from eitan
-	auto true_max = *std::max_element(p_parents.cbegin(), p_parents.cend(), [](auto cp1, auto cp2){
-      return cp1->get_fitness() < cp2->get_fitness(); });
+	if (verbose){std::cout<<"just declared p_parents"<<std::endl;}
 
 	// Select a random sample of size p
     std::sample(pop_.begin(), pop_.end(), std::back_inserter(p_parents),
                 p_, generator_);
+    if (verbose){std::cout<<"just did std::sample to get p_parents"<<std::endl;}
+
+
+
+
+
+	// Find the maximum of p_parents
+	// from eitan
+	
+	// auto true_max = *std::max_element(p_parents.cbegin(), p_parents.cend(), [](auto cp1, auto cp2){
+ //      return cp1->get_fitness() < cp2->get_fitness(); });
+	// if (verbose){std::cout<<"just declared true_max"<<std::endl;}
+	
+
 	assert(p_parents.size() == p_); // Make sure that the right amount of parents were chosen
 	
 	// Keep track of which indicies to remove to avoid data races
 	std::vector<int> to_remove;
+	if (verbose){std::cout<<"just declared to_remove"<<std::endl;}
 
 	// While there are still parents left to compete
 	while (p_parents.size() > 1){
+		if (verbose){std::cout<<"starting while loop"<<std::endl;}
 
 	// Iterate through the remaining population
 	for (unsigned i = 0; i<p_parents.size(); i+=2){
@@ -53,19 +64,36 @@ Chromosome* TournamentDeme::select_parent(){
 		double fitness_2 = p_parents[i+1]->get_fitness();
 
 		// If one parent is fitter than another
-		if (fitness_1 > fitness_2){ to_remove.push_back(i+1);}
-		else if (fitness_1 < fitness_2){ to_remove.push_back(i);}
+		if (fitness_1 > fitness_2){
+			if (verbose){std::cout<<"passed if check in tournament_deme.cc"<<std::endl;}
+
+
+			to_remove.push_back(i+1);
+			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
+
+		}
+		else if (fitness_1 < fitness_2){ 
+			if (verbose){std::cout<<"passed else if check in tournament_deme.cc"<<std::endl;}
+			to_remove.push_back(i);
+			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
+		}
 
 		// If equal fitness, remove the first one
-		else {to_remove.push_back(i);}
+		else {
+			if (verbose){std::cout<<"passed else check in tournament_deme.cc"<<std::endl;}
+			to_remove.push_back(i);
+			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
+		}
 	}
 
+	if (verbose){std::cout<<"printing everything in to_remove"<<std::endl;}
 	for (auto i: to_remove){
 		std::cout<<i<<std::endl;
 	}
 
+	if (verbose){std::cout<<"about to do std::reverse"<<std::endl;}
 	std::reverse(to_remove.begin(), to_remove.end());
-
+	if (verbose){std::cout<<"just did std::reverse"<<std::endl;}
 	// Remove parents that lost
 	for (auto i : to_remove){
 		std::cout<<"size of p parents = "<<p_parents.size()<<std::endl;
@@ -81,6 +109,6 @@ Chromosome* TournamentDeme::select_parent(){
 
 std::cout<<"Finished while loop"<<std::endl;
 assert(p_parents.size() == 1);
-assert(true_max == p_parents[0]);
+//assert(true_max == p_parents[0]);
 return p_parents[0];
 }
