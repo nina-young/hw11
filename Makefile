@@ -16,7 +16,7 @@ test_chromosome: chromosome.o test_chromosome.o cities.o
 test_climb_chromosome: chromosome.o cities.o deme.o test_climb_chromosome.o climb_chromosome.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-test_tournament_deme: chromosome.o cities.o deme.o test_tournament_deme.o tournament_deme.o
+test_tournament_deme: chromosome.o cities.o deme.o  tournament_deme.o #test_tournament_deme.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 tsp: tsp.o chromosome.o deme.o cities.o climb_chromosome.o tournament_deme.o

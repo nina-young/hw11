@@ -3,6 +3,12 @@
 
 #include "climb_chromosome.hh"
 
+ClimbChromosome::ClimbChromosome(const Cities *cities_ptr) : Chromosome(cities_ptr) {
+    assert(!order_.empty());
+  }
+
+ClimbChromosome::~ClimbChromosome(){};
+
 // Using "local hill method"
 void ClimbChromosome::mutate() {
   std::uniform_real_distribution<double> unif(0, order_.size() - 1);

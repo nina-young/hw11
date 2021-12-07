@@ -13,7 +13,7 @@ we need to fix the offset in chromosome.hh eventually
 
 ## TournamentDeme Class
 
-
+rather than doing test file, asserts are in code
 ## Results
 
 Now, create a combined graph from “baseline-ga.tsv”, “local.tsv”, and “tournament.tsv”. Save the graph into “comparison.gif” and upload it with your source code in one zip file. The procedure should be nearly identical to what you did on the last assignment to compare “randomized.tsv” and “ga.tsv”.

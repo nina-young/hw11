@@ -2,10 +2,12 @@
  * Main file for Traveling-Salesperson solver.
  * Read a cities file in TSV format into a Cities object, then run
  * of several solver algorithms on it and output the best result.
+ * need to modify
  */
 
 #include "cities.hh"
 #include "deme.hh"
+#include "tournament_deme.hh"
 
 #include <algorithm>
 #include <cassert>

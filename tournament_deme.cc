@@ -11,10 +11,7 @@
 //   you’re satisfied with the results, run the program and save the results into “tournament.tsv”.
 
 TournamentDeme::TournamentDeme(const Cities* cities_ptr, unsigned pop_size, double mut_rate, unsigned p)
-: Deme(cities_ptr, pop_size, mut_rate), p_(p)
-{
-	
-}
+: Deme(cities_ptr, pop_size, mut_rate), p_(p) {}
 
 int TournamentDeme::get_p(){
 	return p_;
@@ -27,6 +24,11 @@ Chromosome* TournamentDeme::select_parent(){
 
 	// Make container for parents to compete
 	std::vector<Chromosome*> p_parents;
+
+	// Find the maximum of p_parents
+	// from eitan
+	auto true_max = *std::max_element(pop_.cbegin(), pop_.cend(), [](auto cp1, auto cp2){
+      return cp1->get_fitness() < cp2->get_fitness(); });
 
 	// Select a random sample of size p
     std::sample(pop_.begin(), pop_.end(), std::back_inserter(p_parents),
@@ -56,8 +58,10 @@ Chromosome* TournamentDeme::select_parent(){
 
 	// Reset to_remove for the next tournament round
 	to_remove.clear();
+	assert(to_remove.empty());
 }
 
 assert(p_parents.size() == 1);
+assert(true_max == p_parents[0]);
 return p_parents[0];
 }
