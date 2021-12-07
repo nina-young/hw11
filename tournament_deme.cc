@@ -8,11 +8,6 @@
 #include "constant.hh"
 // Might change to climbchromosome later (?)
 
-//Now modify tsp.cc
-//   to use your new TournamentDeme class instead of Deme. Compile the program, run it, and observe the quality 
-//   and speed of the solutions. Note that you may need to experiment with the size of to get good results. Once 
-//   you’re satisfied with the results, run the program and save the results into “tournament.tsv”.
-
 TournamentDeme::TournamentDeme(const Cities* cities_ptr, unsigned pop_size, double mut_rate, unsigned p)
 : Deme(cities_ptr, pop_size, mut_rate), p_(p) {}
 
@@ -24,7 +19,10 @@ int TournamentDeme::get_p(){
 Chromosome* TournamentDeme::select_parent(){
 	if (verbose){std::cout<<"select_parent in tournament_deme.cc"<<std::endl;}
 	// p cannot be larger than the population size of the deme
-	assert(pop_.size()>p_);
+	if (pop_.size()<p_) {
+    std::cerr << "The number of random parents you want to compete is greater than the population size.\n";
+    assert(false);}
+
 	// Make container for parents to compete
 	std::vector<Chromosome*> p_parents;
 	if (verbose){std::cout<<"just declared p_parents"<<std::endl;}
@@ -33,21 +31,17 @@ Chromosome* TournamentDeme::select_parent(){
     std::sample(pop_.begin(), pop_.end(), std::back_inserter(p_parents),
                 p_, generator_);
     if (verbose){std::cout<<"just did std::sample to get p_parents"<<std::endl;}
-
-
-
+    assert(!p_parents.empty());
+    assert(p_parents.size() == p_); // Make sure that the right amount of parents were chosen
 
 
 	// Find the maximum of p_parents
 	// from eitan
 	
-	// auto true_max = *std::max_element(p_parents.cbegin(), p_parents.cend(), [](auto cp1, auto cp2){
- //      return cp1->get_fitness() < cp2->get_fitness(); });
-	// if (verbose){std::cout<<"just declared true_max"<<std::endl;}
-	
+	 Chromosome* true_max = *std::max_element(p_parents.begin(), p_parents.end(), [](auto cp1, auto cp2){
+      return cp1->get_fitness() < cp2->get_fitness(); });
+	 if (verbose){std::cout<<"just declared true_max"<<std::endl;}
 
-	assert(p_parents.size() == p_); // Make sure that the right amount of parents were chosen
-	
 	// Keep track of which indicies to remove to avoid data races
 	std::vector<int> to_remove;
 	if (verbose){std::cout<<"just declared to_remove"<<std::endl;}
@@ -98,7 +92,6 @@ Chromosome* TournamentDeme::select_parent(){
 	for (auto i : to_remove){
 		std::cout<<"size of p parents = "<<p_parents.size()<<std::endl;
 		std::cout<<"index = "<<i<<std::endl;
-
 		p_parents.erase(p_parents.begin()+i);
 	}
 
@@ -109,6 +102,19 @@ Chromosome* TournamentDeme::select_parent(){
 
 std::cout<<"Finished while loop"<<std::endl;
 assert(p_parents.size() == 1);
-//assert(true_max == p_parents[0]);
+// std::cout<<"printing true max: ";
+// for (int i = 0; i<true_max->size(); i++){
+// 	std::cout<<true_max[i]<<' ';
+// }
+// std::cout<<std::endl;
+
+// std::cout<<"printing true max: ";
+// for (int i : *(p_parents[0])){
+// 	std::cout<<i<<' ';
+// }
+//std::cout<<std::endl;
+//std::cout<<*true_max<<std::endl;
+//std::cout<<*(p_parents[0])<<std::endl;
+
 return p_parents[0];
 }

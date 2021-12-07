@@ -15,6 +15,7 @@
 #include <cassert>
 #include <iterator>
 #include <vector>
+#include <iostream>
 
 #include "cities.hh"
 
@@ -24,6 +25,12 @@ class Chromosome {
   Chromosome(Chromosome&&) = delete;
   Chromosome& operator=(const Chromosome&) = delete;
   Chromosome& operator=(Chromosome&&) = delete;
+  friend std::ostream& operator<<(std::ostream& os, const Chromosome& chrom){
+    for (int num : chrom.order_){
+      os<<num<<' ';
+    }
+  return os;
+  }
 
  public:
   // Creation method for new Chromosome. Saves a copy of the cities and
