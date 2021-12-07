@@ -35,7 +35,7 @@ class Deme {
   // return a pointer to that Chromosome.
   virtual Chromosome* select_parent();
 
-  std::vector<ClimbChromosome*> pop_;  // Population of Chromosomes
+  std::vector<Chromosome*> pop_;  // Population of ClimbChromosomes?
   double mut_rate_;  // Mutation rate (fraction in range [0,1])
 
   std::default_random_engine generator_; // A random number generator for the various methods

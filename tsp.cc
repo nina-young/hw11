@@ -6,8 +6,8 @@
  */
 
 #include "cities.hh"
-#include "deme.hh"
 #include "tournament_deme.hh"
+#include "climb_chromosome.hh"
 
 #include <algorithm>
 #include <cassert>
@@ -92,12 +92,15 @@ Cities::permutation_t
 ga_search(const Cities& cities,
           unsigned iters,
           unsigned pop_size,
-          double mutation_rate)
+          double mutation_rate, unsigned p)
 {
   auto best_dist = 1e100;
   auto best_ordering = Cities::permutation_t(cities.size());
 
-  Deme deme(&cities, pop_size, mutation_rate);
+  TournamentDeme deme(&cities, pop_size, mutation_rate, p);
+
+  //Deme deme(&cities, pop_size, mutation_rate);
+  // ^ regular deme
 
   // Evolve the population to make it fitter and keep track of
   // the shortest distance generated
@@ -117,7 +120,7 @@ ga_search(const Cities& cities,
 //////////////////////////////////////////////////////////////////////////////
 int main(int argc, char** argv)
 {
-  if (argc != 4) {
+  if (argc != 5) {
     std::cerr << "Required arguments: filename for cities, population size, and mutation rate\n";
     return -1;
   }
@@ -125,15 +128,18 @@ int main(int argc, char** argv)
   const auto cities = Cities(argv[1]);
   const auto pop_size = atoi(argv[2]);
   const auto mut_rate = atof(argv[3]);
+
+  // get rid of this for regular deme
+  const unsigned p = atof(argv[4]);
   constexpr unsigned NUM_ITER = 100000;
   assert(cities.size() > 0 && "Did you actually read the input file successfully?");
 
 
  //const auto best_ordering = exhaustive_search(cities);
  //const auto best_ordering = randomized_search(cities, NUM_ITER);
-  const auto best_ordering = ga_search(cities, NUM_ITER, pop_size, mut_rate);
+  const auto best_ordering = ga_search(cities, NUM_ITER, pop_size, mut_rate, p);
 
-  auto out = std::ofstream("shortest.tsv");
+  auto out = std::ofstream("tournament.tsv");
   if (!out.is_open()) {
     std::cerr << "Can't open output file to record shortest path!\n";
     return -2;

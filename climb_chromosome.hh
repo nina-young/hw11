@@ -6,9 +6,6 @@
 
 class ClimbChromosome : public Chromosome {
 
-
-
-
   public:
 
 

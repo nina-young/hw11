@@ -9,6 +9,9 @@ adding tournament deme and climb chrom
 we need to fix the offset in chromosome.hh eventually
 
 
+## running 
+note that i need another arg
+
 ## ClimbChromosome Class
 
 ## TournamentDeme Class

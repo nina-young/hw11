@@ -3,15 +3,20 @@
  * travelling-salesperson problem.  A deme is a population of individuals.
  */
 
-
 #include "deme.hh"
 #include "climb_chromosome.hh"
+#include "chromosome.hh"
+#include "constant.hh"
+
+#include <vector>
+
 
 // Generate a Deme of the specified size with all-random Chromosomes.
 // Also receives a mutation rate in the range [0-1].
 Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
   : pop_(pop_size), mut_rate_(mut_rate)
 {
+  if (verbose){std::cout<<"constructing a Deme"<<std::endl;}
   // Add new Chromosomes to the population
   for (unsigned i = 0; i < pop_size; i++){
     pop_[i] = new ClimbChromosome(cities_ptr);
@@ -24,6 +29,7 @@ Deme::~Deme() {for (auto c : pop_){delete c;}}
 // Return a copy of the Chromosome with the highest fitness.
 const Chromosome* Deme::get_best() const
 {
+  if (verbose){std::cout<<"running get_best"<<std::endl;}
   // Set to first Chromosome arbitrarily
   Chromosome* highest = pop_[0];
 
@@ -41,6 +47,7 @@ const Chromosome* Deme::get_best() const
 // Using Fitness Proportionate selection
 Chromosome* Deme::select_parent()
 {
+  if (verbose){std::cout<<"running select_parent"<<std::endl;}
   // Get the sum of all the fitness
   double S = 0;
   for (auto c : pop_){
@@ -73,6 +80,8 @@ Chromosome* Deme::select_parent()
 // After we've generated pop_size new Chromosomes, we delete all the old ones.
 void Deme::compute_next_generation()
 {
+  if (verbose){std::cout<<"doing compute_next_generation"<<std::endl;}
+
   std::vector<Chromosome*> new_pop;
   for (unsigned long i=0; i<pop_.size()/2; i++){
     // Select two parents at random // What if they are the same?
@@ -99,5 +108,8 @@ void Deme::compute_next_generation()
     new_pop.push_back(children.second);
 
   }
+
   pop_ = new_pop;
+  //std::swap(pop_, new_pop);
+  // ? need to put this back with swap?
 }
