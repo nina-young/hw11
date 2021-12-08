@@ -38,7 +38,7 @@ Chromosome* TournamentDeme::select_parent(){
 	// Sanity check: uncomment this and lines ??? to compare select_parents()'s method
 	// of getting the hightest fitness with this funcion
 	// max_element() lambda is from Eitan's previous homework solutions
-	
+
 	// Chromosome* true_max = *std::max_element(p_parents.begin(), p_parents.end(), [](auto cp1, auto cp2){
   	//   return cp1->get_fitness() < cp2->get_fitness(); });
 	// if (verbose){std::cout<<"just declared true_max"<<std::endl;}
@@ -69,7 +69,7 @@ Chromosome* TournamentDeme::select_parent(){
 
 		}
 
-		else if (fitness_1 < fitness_2){ 
+		else if (fitness_1 < fitness_2){
 			if (verbose){std::cout<<"passed else if check in tournament_deme.cc"<<std::endl;}
 			winners.push_back(p_parents[i+1]);
 			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
@@ -85,12 +85,19 @@ Chromosome* TournamentDeme::select_parent(){
 	//if (verbose){std::cout<<"printing everything in to_remove"<<std::endl;}
 	//for (auto i: to_remove){
 	//	std::cout<<i<<std::endl;
+<<<<<<< HEAD
 	
 	//if (verbose){std::cout<<"\n\n\n\n\n\ndid while loop\n\n\n\n\n\n";}
 	assert(winners.size() < p_parents.size());
 	p_parents = winners;
 	winners.clear();
 	//std::cout<<"swaped"<<std::endl;
+=======
+
+	if (verbose){std::cout<<"\n\n\n\n\n\ndid while loop\n\n\n\n\n\n";}
+	
+	std::swap(winners, p_parents);
+>>>>>>> a5a4b9e4c281bb99dcc8b971e4b9ebcd70501650
 
 	}
 	
