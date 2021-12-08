@@ -44,14 +44,13 @@ Chromosome* TournamentDeme::select_parent(){
 	// if (verbose){std::cout<<"just declared true_max"<<std::endl;}
 
 	// Keep track of which indicies to remove to avoid data races
-	std::vector<int> to_remove;
+	std::vector<Chromosome*> winners;
 	if (verbose){std::cout<<"just declared to_remove"<<std::endl;}
 
 	// While there are still parents left to compete
 	while (p_parents.size() > 1){
 		//std::cout<<"starting while loop"<<std::endl;
 		//std::cout<<"p_parents size = "<<p_parents.size()<<std::endl;
-	int counter = p_parents.size();
 	// Iterate through the remaining population
 	for (unsigned i = 0; i<p_parents.size()/2; i+=2){
 
@@ -62,21 +61,21 @@ Chromosome* TournamentDeme::select_parent(){
 		// If one parent is fitter than another
 		if (fitness_1 > fitness_2){
 			if (verbose){std::cout<<"passed if check in tournament_deme.cc"<<std::endl;}
-			to_remove.push_back(i+1);
+			winners.push_back(p_parents[i]);
 			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
 
 		}
 
 		else if (fitness_1 < fitness_2){ 
 			if (verbose){std::cout<<"passed else if check in tournament_deme.cc"<<std::endl;}
-			to_remove.push_back(i);
+			winners.push_back(p_parents[i+1]);
 			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
 		}
 
 		// If equal fitness, remove the first one
 		else {
 			if (verbose){std::cout<<"passed else check in tournament_deme.cc"<<std::endl;}
-			to_remove.push_back(i);
+			winners.push_back(p_parents[i]);
 			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
 		}
 	}
@@ -85,21 +84,9 @@ Chromosome* TournamentDeme::select_parent(){
 	//	std::cout<<i<<std::endl;
 	
 	if (verbose){std::cout<<"\n\n\n\n\n\ndid while loop\n\n\n\n\n\n";}
-	// Iteratevly (?) remove from p_parents all the indicies stored in to_remove
-	if (verbose){std::cout<<"about to do std::reverse"<<std::endl;}
-	std::reverse(to_remove.begin(), to_remove.end());
-	if (verbose){std::cout<<"just did std::reverse"<<std::endl;}
-	//std::cout<<"line 90"<<std::endl;
-	for (auto i : to_remove){
-		//std::cout<<"size of p parents = "<<p_parents.size()<<std::endl;
-		//std::cout<<"index = "<<i<<std::endl;
-		p_parents.erase(p_parents.begin()+i);
-		assert(p_parents.size()<p_);
-		}
+	
+	std::swap(winners, p_parents);
+
 	}
-	//std::cout<<"\n\n\n\n\n FINISHED WHILE LOOP\n\n\n";
-	// Reset to_remove for the next tournament round
-	to_remove.clear();
-	assert(to_remove.empty());
-	assert(p_parents.size() == 1);
-	return p_parents[0]; }
+	
+	return winners[0]; }
