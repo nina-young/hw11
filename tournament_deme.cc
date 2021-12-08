@@ -2,13 +2,13 @@
 */
 
 #include "tournament_deme.hh"
-
-#include <algorithm>
-
 #include "constant.hh"
 
+#include <algorithm>
+#include <cassert>
+
 TournamentDeme::TournamentDeme(const Cities* cities_ptr, unsigned pop_size, double mut_rate, unsigned p)
-: Deme(cities_ptr, pop_size, mut_rate), p_(p) {assert}
+: Deme(cities_ptr, pop_size, mut_rate), p_(p) {assert(p%2 == 0);}
 
 // Get the number of parents to select in select_parents
 int TournamentDeme::get_p(){
