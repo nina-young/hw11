@@ -2,11 +2,8 @@ CXX=g++
 CXXFLAGS=-Wall -Wextra -pedantic -std=c++17 -O3 -g
 LDFLAGS=$(CXXFLAGS)
 OBJ=$(SRC:.cc=.o)
-#clang
+# Must use g++ if using constant.hh
 
-
-#including test_cities here in case we update the interface
-#for later: fix the scaling thing
 all:  test_cities tsp test_chromosome test_climb_chromosome test_tournament_deme
 
 test_cities: cities.o test_cities.o constant.hh

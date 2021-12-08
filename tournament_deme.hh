@@ -1,4 +1,4 @@
-/* TournamentDeme header file
+/* Declarations for TournamentDeme class
 */
 #include <algorithm>
 #include <cassert>
@@ -9,7 +9,6 @@ class TournamentDeme : public Deme {
 
 public: 
 	TournamentDeme(const Cities* cities_ptr, unsigned pop_size, double mut_rate, unsigned p);
-	// initialize p and then call deme constructor
 	virtual Chromosome* select_parent() override;
 	int get_p();
 

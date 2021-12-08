@@ -12,7 +12,7 @@
 
 
 // Generate a Deme of the specified size with all-random Chromosomes.
-// Also receives a mutation rate in the range [0-1].
+// Recieves a mutation rate in the range [0-1].
 Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
   : pop_(pop_size), mut_rate_(mut_rate)
 {
@@ -42,6 +42,7 @@ const Chromosome* Deme::get_best() const
   }
   return highest;
 }
+
 // Randomly select a Chromosome in the population based on fitness and
 // return a pointer to that Chromosome.
 // Using Fitness Proportionate selection
@@ -110,6 +111,4 @@ void Deme::compute_next_generation()
   }
 
   pop_ = new_pop;
-  //std::swap(pop_, new_pop);
-  // ? need to put this back with swap?
 }

@@ -1,8 +1,7 @@
 /*
  * Main file for Traveling-Salesperson solver.
- * Read a cities file in TSV format into a Cities object, then run
+ * Read a cities file in .tsv format into a Cities object, then run
  * of several solver algorithms on it and output the best result.
- * need to modify
  */
 
 #include "cities.hh"
@@ -128,10 +127,11 @@ int main(int argc, char** argv)
   const auto cities = Cities(argv[1]);
   const auto pop_size = atoi(argv[2]);
   const auto mut_rate = atof(argv[3]);
-
-  // get rid of this for regular deme
-  const unsigned p = atof(argv[4]);
   constexpr unsigned NUM_ITER = 100000;
+
+  // p argument necessary if using TournamentDeme
+  const unsigned p = atof(argv[4]);
+
   assert(cities.size() > 0 && "Did you actually read the input file successfully?");
 
 
@@ -139,6 +139,8 @@ int main(int argc, char** argv)
  //const auto best_ordering = randomized_search(cities, NUM_ITER);
   const auto best_ordering = ga_search(cities, NUM_ITER, pop_size, mut_rate, p);
 
+
+  // Save file
   auto out = std::ofstream("tournament.tsv");
   if (!out.is_open()) {
     std::cerr << "Can't open output file to record shortest path!\n";
