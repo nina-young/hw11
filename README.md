@@ -12,6 +12,13 @@ need some way to assert that p is a power of 2
 
 make it actually print as it goes like in previous homework
 
+talk somewhere about what the cities files are called
+
+**make a tsv challenge and linear separate files**
+
+
+for whatever reason it doesnt print as it goes, how to we fix this?
+
 ## ClimbChromosome Class
 
 ## TournamentDeme Class
@@ -25,7 +32,12 @@ Tests for `ClimbChromosome` and `TournamentDeme` classes are inlcluded in their 
 ## Running the code
 
 The arguments needed are:
-* `filename.tsv` *a* file of city coordinates, the population size, mutation rate, and p (the number of `Chromosome` objects in a `TournamentDeme` that will compete with each other). p must be a power of 2. 
+* `filename.tsv` *a file of city coordinates*
+* `pop_size` *the population size*
+* `mut_rate` *the mutation rate*
+* `p` *the number of `Chromosome` objects in a `TournamentDeme` that will compete with each other*
+
+*Note that `p` must be a power of 2* 
 
 To run the code type
 	
@@ -34,8 +46,8 @@ To run the code type
 
 The ordering of shortest path as calculated by the advanced ga search will be saved in `tournament.tsv`. To test the results of the other algorithms, uncomment the lines before _______(?) and change the destination in line ______.
 
+## Results
 
-
-for whatever reason it doesnt print as it goes, how to we fix this?
+The best orderings for `challenge.tsv` and for `five.tsv` are in the files _____ and _____ respectively. Note that when this is run, your results will still end up in `tournament.tsv`. 
 
 Now, create a combined graph from “baseline-ga.tsv”, “local.tsv”, and “tournament.tsv”. Save the graph into “comparison.gif” and upload it with your source code in one zip file. The procedure should be nearly identical to what you did on the last assignment to compare “randomized.tsv” and “ga.tsv”.
