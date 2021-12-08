@@ -32,3 +32,5 @@ The ordering of shortest path as calculated by the advanced ga search will be sa
 The best orderings for `challenge.tsv` are in `shortest.tsv`. The speeds and distances are written to `tournament.tsv`. 
 
 Below is a plot comparing the speeds of randomized search, basic ga, and advanced ga:
+
+![](comparison.gif)
