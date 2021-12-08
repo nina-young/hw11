@@ -42,9 +42,9 @@ The arguments needed are:
 To run the code type
 	
 	make
-	./tsp filename.tsv pop_size mut_rate p
+	./tsp filename.tsv pop_size mut_rate p >tournament.tsv
 
-The ordering of shortest path as calculated by the advanced ga search will be saved in `tournament.tsv`. To test the results of the other algorithms, uncomment the lines before _______(?) and change the destination in line ______.
+The ordering of shortest path as calculated by the advanced ga search will be saved in `tournament.tsv`. To test the results of the other algorithms, uncomment the lines before 
 
 ## Results
 

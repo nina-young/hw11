@@ -8,7 +8,7 @@
 #include "constant.hh"
 
 TournamentDeme::TournamentDeme(const Cities* cities_ptr, unsigned pop_size, double mut_rate, unsigned p)
-: Deme(cities_ptr, pop_size, mut_rate), p_(p) {}
+: Deme(cities_ptr, pop_size, mut_rate), p_(p) {assert}
 
 // Get the number of parents to select in select_parents
 int TournamentDeme::get_p(){
