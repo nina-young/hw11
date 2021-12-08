@@ -35,25 +35,20 @@ Chromosome* TournamentDeme::select_parent(){
     assert(p_parents.size() == p_); // Make sure that the right amount of parents were chosen
 
 
-	// Sanity check: uncomment this and lines ??? to compare select_parents()'s method
+	// Sanity check: uncomment this and lines 42 and 43 to compare select_parents()'s method
 	// of getting the hightest fitness with this funcion
 	// max_element() lambda is from Eitan's previous homework solutions
 
 	// Chromosome* true_max = *std::max_element(p_parents.begin(), p_parents.end(), [](auto cp1, auto cp2){
   	//   return cp1->get_fitness() < cp2->get_fitness(); });
-	// if (verbose){std::cout<<"just declared true_max"<<std::endl;}
 
-	// Keep track of which indicies to remove to avoid data races
+	// Keep track of winners for each round
 	std::vector<Chromosome*> winners;
 	winners.reserve(p_/2);
-	//std::cout<<"winners declared"<<std::endl;
-	if (verbose){std::cout<<"just declared to_remove"<<std::endl;}
 
 	// While there are still parents left to compete
 	while (p_parents.size() > 1){
-
-		//std::cout<<"starting while loop"<<std::endl;
-		//std::cout<<"p_parents size = "<<p_parents.size()<<std::endl;
+	winners.clear();
 	// Iterate through the remaining population
 	for (unsigned i = 0; i<p_parents.size()/2; i+=2){
 
@@ -63,39 +58,19 @@ Chromosome* TournamentDeme::select_parent(){
 
 		// If one parent is fitter than another
 		if (fitness_1 > fitness_2){
-			if (verbose){std::cout<<"passed if check in tournament_deme.cc"<<std::endl;}
 			winners.push_back(p_parents[i]);
-			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
-
 		}
 
 		else if (fitness_1 < fitness_2){
-			if (verbose){std::cout<<"passed else if check in tournament_deme.cc"<<std::endl;}
 			winners.push_back(p_parents[i+1]);
-			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
 		}
 
 		// If equal fitness, remove the first one
 		else {
-			if (verbose){std::cout<<"passed else check in tournament_deme.cc"<<std::endl;}
 			winners.push_back(p_parents[i]);
-			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
 		}
 	}
-	//if (verbose){std::cout<<"printing everything in to_remove"<<std::endl;}
-	//for (auto i: to_remove){
-	//	std::cout<<i<<std::endl;
-
-	//if (verbose){std::cout<<"\n\n\n\n\n\ndid while loop\n\n\n\n\n\n";}
 	assert(winners.size() < p_parents.size());
 	p_parents = winners;
-	winners.clear();
-	//std::cout<<"swaped"<<std::endl;
-
-	if (verbose){std::cout<<"\n\n\n\n\n\ndid while loop\n\n\n\n\n\n";}
-
-	std::swap(winners, p_parents);
-
 	}
-
 	return winners[0]; }

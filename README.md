@@ -6,7 +6,7 @@ This is a continuation of the traveling salesperson problem that uses a more adv
 
 ## Testing
 
-This repository contains `constant.hh` which sets a variable `verbose` to `false`. Go into this file and reset it to `true`, then uncomment any lines in the rest of the files that have an `if (verbose){}` statement to see more print statements. To disable, comment out the lines again or set `verbose` to be `false` again in `constant/hh`. Note that in order for this method to work, you must use `g++`.
+This repository contains `constant.hh` which sets a variable `verbose` to `false`. Go into this file and reset it to `true`, then uncomment any lines in the rest of the files that have an `if (verbose){}` statement to see more print statements. Also uncomment any mentions of `constant.hh` in the Makefile. To disable, comment out the lines again or set `verbose` to be `false` again in `constant/hh`. Note that in order for this method to work, you must use `g++`.
 
 Tests for `ClimbChromosome` and `TournamentDeme` classes are inlcluded in their implimentation (spelling?). The test files are for the Makefile.
 
