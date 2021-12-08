@@ -49,11 +49,11 @@ Chromosome* TournamentDeme::select_parent(){
 
 	// While there are still parents left to compete
 	while (p_parents.size() > 1){
-		std::cout<<"starting while loop"<<std::endl;
-		std::cout<<"p_parents size = "<<p_parents.size()<<std::endl;
-
+		//std::cout<<"starting while loop"<<std::endl;
+		//std::cout<<"p_parents size = "<<p_parents.size()<<std::endl;
+	int counter = p_parents.size();
 	// Iterate through the remaining population
-	for (unsigned i = 0; i<p_parents.size(); i+=2){
+	for (unsigned i = 0; i<p_parents.size()/2; i+=2){
 
 		// Get the fitnesses of both selected parents
 		double fitness_1 = p_parents[i]->get_fitness();
@@ -89,7 +89,7 @@ Chromosome* TournamentDeme::select_parent(){
 	if (verbose){std::cout<<"about to do std::reverse"<<std::endl;}
 	std::reverse(to_remove.begin(), to_remove.end());
 	if (verbose){std::cout<<"just did std::reverse"<<std::endl;}
-	std::cout<<"line 90"<<std::endl;
+	//std::cout<<"line 90"<<std::endl;
 	for (auto i : to_remove){
 		//std::cout<<"size of p parents = "<<p_parents.size()<<std::endl;
 		//std::cout<<"index = "<<i<<std::endl;
@@ -97,7 +97,7 @@ Chromosome* TournamentDeme::select_parent(){
 		assert(p_parents.size()<p_);
 		}
 	}
-	std::cout<<"\n\n\n\n\n FINISHED WHILE LOOP\n\n\n";
+	//std::cout<<"\n\n\n\n\n FINISHED WHILE LOOP\n\n\n";
 	// Reset to_remove for the next tournament round
 	to_remove.clear();
 	assert(to_remove.empty());
