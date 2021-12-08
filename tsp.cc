@@ -145,7 +145,7 @@ int main(int argc, char** argv)
 
 
   // Save file
-  auto out = std::ofstream("tournament.tsv");
+  auto out = std::ofstream("shortest.tsv");
   if (!out.is_open()) {
     std::cerr << "Can't open output file to record shortest path!\n";
     return -2;

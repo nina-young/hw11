@@ -85,20 +85,17 @@ Chromosome* TournamentDeme::select_parent(){
 	//if (verbose){std::cout<<"printing everything in to_remove"<<std::endl;}
 	//for (auto i: to_remove){
 	//	std::cout<<i<<std::endl;
-<<<<<<< HEAD
-	
+
 	//if (verbose){std::cout<<"\n\n\n\n\n\ndid while loop\n\n\n\n\n\n";}
 	assert(winners.size() < p_parents.size());
 	p_parents = winners;
 	winners.clear();
 	//std::cout<<"swaped"<<std::endl;
-=======
 
 	if (verbose){std::cout<<"\n\n\n\n\n\ndid while loop\n\n\n\n\n\n";}
-	
+
 	std::swap(winners, p_parents);
->>>>>>> a5a4b9e4c281bb99dcc8b971e4b9ebcd70501650
 
 	}
-	
+
 	return winners[0]; }
