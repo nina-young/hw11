@@ -38,7 +38,7 @@ Chromosome* TournamentDeme::select_parent(){
 	// Sanity check: uncomment this and lines ??? to compare select_parents()'s method
 	// of getting the hightest fitness with this funcion
 	// max_element() lambda is from Eitan's previous homework solutions
-	
+
 	// Chromosome* true_max = *std::max_element(p_parents.begin(), p_parents.end(), [](auto cp1, auto cp2){
   	//   return cp1->get_fitness() < cp2->get_fitness(); });
 	// if (verbose){std::cout<<"just declared true_max"<<std::endl;}
@@ -51,7 +51,6 @@ Chromosome* TournamentDeme::select_parent(){
 	while (p_parents.size() > 1){
 		//std::cout<<"starting while loop"<<std::endl;
 		//std::cout<<"p_parents size = "<<p_parents.size()<<std::endl;
-	int counter = p_parents.size();
 	// Iterate through the remaining population
 	for (unsigned i = 0; i<p_parents.size()/2; i+=2){
 
@@ -67,7 +66,7 @@ Chromosome* TournamentDeme::select_parent(){
 
 		}
 
-		else if (fitness_1 < fitness_2){ 
+		else if (fitness_1 < fitness_2){
 			if (verbose){std::cout<<"passed else if check in tournament_deme.cc"<<std::endl;}
 			to_remove.push_back(i);
 			if (verbose){std::cout<<"just pushed back on to_remove"<<std::endl;}
@@ -83,7 +82,7 @@ Chromosome* TournamentDeme::select_parent(){
 	//if (verbose){std::cout<<"printing everything in to_remove"<<std::endl;}
 	//for (auto i: to_remove){
 	//	std::cout<<i<<std::endl;
-	
+
 	if (verbose){std::cout<<"\n\n\n\n\n\ndid while loop\n\n\n\n\n\n";}
 	// Iteratevly (?) remove from p_parents all the indicies stored in to_remove
 	if (verbose){std::cout<<"about to do std::reverse"<<std::endl;}
