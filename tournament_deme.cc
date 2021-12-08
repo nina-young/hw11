@@ -25,6 +25,7 @@ Chromosome* TournamentDeme::select_parent(){
 
 	// Make container for parents to compete
 	std::vector<Chromosome*> p_parents;
+	p_parents.reserve(p_);
 	if (verbose){std::cout<<"just declared p_parents"<<std::endl;}
 
 	// Select a random sample of size p
@@ -48,7 +49,8 @@ Chromosome* TournamentDeme::select_parent(){
 
 	// While there are still parents left to compete
 	while (p_parents.size() > 1){
-		if (verbose){std::cout<<"starting while loop"<<std::endl;}
+		std::cout<<"starting while loop"<<std::endl;
+		std::cout<<"p_parents size = "<<p_parents.size()<<std::endl;
 
 	// Iterate through the remaining population
 	for (unsigned i = 0; i<p_parents.size(); i+=2){
@@ -81,7 +83,7 @@ Chromosome* TournamentDeme::select_parent(){
 	//if (verbose){std::cout<<"printing everything in to_remove"<<std::endl;}
 	//for (auto i: to_remove){
 	//	std::cout<<i<<std::endl;
-	}
+	
 	if (verbose){std::cout<<"\n\n\n\n\n\ndid while loop\n\n\n\n\n\n";}
 	// Iteratevly (?) remove from p_parents all the indicies stored in to_remove
 	if (verbose){std::cout<<"about to do std::reverse"<<std::endl;}
@@ -92,8 +94,10 @@ Chromosome* TournamentDeme::select_parent(){
 		//std::cout<<"size of p parents = "<<p_parents.size()<<std::endl;
 		//std::cout<<"index = "<<i<<std::endl;
 		p_parents.erase(p_parents.begin()+i);
+		assert(p_parents.size()<p_);
+		}
 	}
-
+	std::cout<<"\n\n\n\n\n FINISHED WHILE LOOP\n\n\n";
 	// Reset to_remove for the next tournament round
 	to_remove.clear();
 	assert(to_remove.empty());
