@@ -82,12 +82,12 @@ Chromosome* TournamentDeme::select_parent(){
 	//for (auto i: to_remove){
 	//	std::cout<<i<<std::endl;
 	}
-
+	if (verbose){std::cout<<"\n\n\n\n\n\ndid while loop\n\n\n\n\n\n";}
 	// Iteratevly (?) remove from p_parents all the indicies stored in to_remove
 	if (verbose){std::cout<<"about to do std::reverse"<<std::endl;}
 	std::reverse(to_remove.begin(), to_remove.end());
 	if (verbose){std::cout<<"just did std::reverse"<<std::endl;}
-	
+	std::cout<<"line 90"<<std::endl;
 	for (auto i : to_remove){
 		//std::cout<<"size of p parents = "<<p_parents.size()<<std::endl;
 		//std::cout<<"index = "<<i<<std::endl;

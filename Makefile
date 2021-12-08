@@ -18,7 +18,7 @@ test_climb_chromosome: chromosome.o cities.o deme.o test_climb_chromosome.o clim
 test_tournament_deme: chromosome.o cities.o deme.o  tournament_deme.o climb_chromosome.o test_tournament_deme.o constant.hh
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-tsp: tsp.o chromosome.o deme.o cities.o climb_chromosome.o tournament_deme.o constant.hh
+tsp: old_tsp_DONOTADD.o chromosome.o deme.o cities.o climb_chromosome.o tournament_deme.o constant.hh
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 %.o: %.cc %.hh

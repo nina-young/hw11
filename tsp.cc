@@ -1,12 +1,11 @@
 /*
  * Main file for Traveling-Salesperson solver.
- * Read a cities file in .tsv format into a Cities object, then run
+ * Read a cities file in TSV format into a Cities object, then run
  * of several solver algorithms on it and output the best result.
  */
 
 #include "cities.hh"
-#include "tournament_deme.hh"
-#include "climb_chromosome.hh"
+#include "deme.hh"
 
 #include <algorithm>
 #include <cassert>
@@ -119,7 +118,7 @@ ga_search(const Cities& cities,
 //////////////////////////////////////////////////////////////////////////////
 int main(int argc, char** argv)
 {
-  if (argc != 5) {
+  if (argc != 4) {
     std::cerr << "Required arguments: filename for cities, population size, and mutation rate\n";
     return -1;
   }
@@ -128,19 +127,13 @@ int main(int argc, char** argv)
   const auto pop_size = atoi(argv[2]);
   const auto mut_rate = atof(argv[3]);
   constexpr unsigned NUM_ITER = 100000;
-
-  // p argument necessary if using TournamentDeme
-  const unsigned p = atof(argv[4]);
-
   assert(cities.size() > 0 && "Did you actually read the input file successfully?");
 
 
- //const auto best_ordering = exhaustive_search(cities);
- //const auto best_ordering = randomized_search(cities, NUM_ITER);
-  const auto best_ordering = ga_search(cities, NUM_ITER, pop_size, mut_rate, p);
+ const auto best_ordering = exhaustive_search(cities);
+ const auto best_ordering = randomized_search(cities, NUM_ITER);
+  const auto best_ordering = ga_search(cities, NUM_ITER, pop_size, mut_rate);
 
-
-  // Save file
   auto out = std::ofstream("tournament.tsv");
   if (!out.is_open()) {
     std::cerr << "Can't open output file to record shortest path!\n";

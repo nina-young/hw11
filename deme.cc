@@ -34,7 +34,6 @@ const Chromosome* Deme::get_best() const
   Chromosome* highest = pop_[0];
 
   // Check highest against every other Chromosome in pop_
-  // (?) find a way to skip the first one with this syntax
   for (auto c : pop_){
    if (c->get_fitness() > highest->get_fitness()){
     highest = c;

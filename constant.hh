@@ -1,1 +1,1 @@
-#define verbose false
+#define verbose true
